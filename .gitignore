@@ -400,3 +400,5 @@ FodyWeavers.xsd
 keys.json
 credentials.json
 venv/*
+sheets.json
+.idea/*

@@ -1,18 +1,19 @@
-import requests
+from googleapiclient.discovery import build
 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from settings import get_sheet_credentials
+from settings import SHEETS_ID
 
 
-def save(data: str) -> None:
-    # Google Sheets setup
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
-    client = gspread.authorize(creds)
-    sheet = client.open("Test").sheet1
+def save(body: str) -> None:
+    credentials = get_sheet_credentials()
+    service = build('sheets', 'v4', credentials=credentials)
 
-    for item in data:
-        row = [str(value) for value in item.values()]
-        sheet.append_row(row)
+    # Specify the range and values to be updated
+    range_ = 'Sheet1!A1:D5'  # Example range
 
-    print("Data written to Google Sheet successfully.")
+    # Call the Sheets API to update the range
+    result = service.spreadsheets().values().update(
+        spreadsheetId=SHEETS_ID, range=range_,
+        valueInputOption='RAW', body=body).execute()
+
+    print(f"{result.get('updatedCells')} cells updated.")
