@@ -397,8 +397,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-keys.json
-credentials.json
-venv/*
+mono.json
 sheets.json
+venv/*
 .idea/*
