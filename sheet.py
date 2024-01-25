@@ -1,4 +1,3 @@
-from typing import List, Dict, Any
 from datetime import datetime
 from datetime import timezone
 from zoneinfo import ZoneInfo
@@ -9,18 +8,19 @@ from settings import get_sheet_credentials
 from settings import SHEETS_ID
 
 
-def save(body: str) -> None:
+def save(body: dict) -> None:
     credentials = get_sheet_credentials()
     service = build('sheets', 'v4', credentials=credentials)
 
-    range_ = 'Sheet1!A2:N5'
+    range_ = 'Sheet1!A3:A'
 
-    result = service.spreadsheets().values().update(
+    result = service.spreadsheets().values().append(
         spreadsheetId=SHEETS_ID, range=range_,
         valueInputOption='USER_ENTERED',
+        insertDataOption='INSERT_ROWS',
         body=body).execute()
 
-    print(f"Sheets: updated {result.get('updatedCells')} cells.")
+    print(f"Appended {result.get('updates').get('updatedRows')} rows.")
 
 
 def format(transactions: list[dict[str, any]]) -> dict[str, any]:
