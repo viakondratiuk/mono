@@ -1,4 +1,5 @@
 
+import json
 import requests
 import time
 
@@ -13,3 +14,13 @@ def get_transactions(api_key: str) -> str:
     response = requests.get(API_URL, headers=headers)
     
     return response.json()
+
+def dump(transactions: str) -> None:
+    with open('transactions.json', 'w') as f:
+        json.dump(transactions, f, indent=4)
+
+
+def load() -> str:
+    with open('transactions.json', 'r') as f:
+        return json.load(f)
+    

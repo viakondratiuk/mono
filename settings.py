@@ -2,9 +2,9 @@ import json
 
 from google.oauth2.service_account import Credentials
 
-MONO_KEY_PATH = "mono.json"
+MONO_KEY_PATH = "keys/mono.json"
 
-SHEETS_SERVICE_ACCOUNT = 'sheets.json'
+SHEETS_SERVICE_ACCOUNT = 'keys/sheets.json'
 SHEETS_SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SHEETS_ID = '1L1f-c31oWSG-CTGuSe1XqSAWWHwX6_7XiUTlBoeHh3E'
 
