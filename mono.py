@@ -6,11 +6,14 @@ from settings import MONO_ACCOUNT
 from settings import MONO_API_URL
 
 
-def get_transactions(api_key: str, from_: int, to_: int) -> str:
+def get_transactions(api_key: str, from_: int, to_: int) -> list[dict[str, any]]:
     response = requests.get(MONO_API_URL.format(MONO_ACCOUNT, from_, to_), headers={'X-Token': api_key})
     json_ = response.json()
-    print(f"Mono: extracted {len(json_)} transactions")
+    if 'errorDescription' in json_:
+        print(f"Mono: Too many request, try later")
+        return []
 
+    print(f"...Mono: extracted {len(json_)} transactions")
     return json_
 
 

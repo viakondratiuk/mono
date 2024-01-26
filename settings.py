@@ -10,6 +10,8 @@ SHEETS_SERVICE_ACCOUNT = 'keys/sheets.json'
 SHEETS_SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SHEETS_ID = '1L1f-c31oWSG-CTGuSe1XqSAWWHwX6_7XiUTlBoeHh3E'
 
+PROCESSED_IDS_FILE = 'processed_ids.txt'
+
 
 def get_mono_key() -> str:
     with open(MONO_KEY_PATH, "r") as file:

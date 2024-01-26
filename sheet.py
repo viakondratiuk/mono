@@ -20,7 +20,7 @@ def save(body: dict) -> None:
         insertDataOption='INSERT_ROWS',
         body=body).execute()
 
-    print(f"Appended {result.get('updates').get('updatedRows')} rows.")
+    print(f"...Sheet: appended {result.get('updates').get('updatedRows')} rows")
 
 
 def format(transactions: list[dict[str, any]]) -> dict[str, any]:

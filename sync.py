@@ -4,6 +4,7 @@ from datetime import datetime
 
 import mono
 import sheet
+from processed import filter_dups
 from settings import get_mono_key
 
 
@@ -19,13 +20,13 @@ def main(from_date, to_date, output=None):
 
     from_ = get_epoch_time(from_date)
     to_ = get_epoch_time(to_date)
-    transactions = mono.get_transactions(mono_key, from_, to_)
-
+    all_transactions = mono.get_transactions(mono_key, from_, to_)
+    # all_transactions = mono.load()
     if output:
-        mono.dump(transactions)
-    # transactions = mono.load()
+        mono.dump(all_transactions)
 
-    body = sheet.format(transactions)
+    filtered_transactions = filter_dups(all_transactions)
+    body = sheet.format(filtered_transactions)
     sheet.save(body)
 
 
