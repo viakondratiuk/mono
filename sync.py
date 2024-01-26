@@ -8,19 +8,17 @@ from settings import get_mono_key
 
 
 def get_epoch_time(date_str):
-    """Convert 'day-month-year' string to epoch time."""
-    date_format = '%d.%m.%y'
-    date_obj = datetime.strptime(date_str, date_format)
+    date_obj = datetime.strptime(date_str, '%d.%m.%y')
     epoch_time = int(time.mktime(date_obj.timetuple()))
 
     return epoch_time
 
 
 def main(from_date, to_date):
+    mono_key = get_mono_key()
+
     from_ = get_epoch_time(from_date)
     to_ = get_epoch_time(to_date)
-
-    mono_key = get_mono_key()
     transactions = mono.get_transactions(mono_key, from_, to_)
 
     # mono.dump(transactions)
@@ -32,8 +30,10 @@ def main(from_date, to_date):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script to sync transactions from a bank API to a Google Spreadsheet")
-    parser.add_argument("--from", "-f", dest="from_date", required=True, help="Start date for fetching transactions (format: DD.MM.YY)")
-    parser.add_argument("--to", "-t", dest="to_date", required=True, help="End date for fetching transactions (format: DD.MM.YY)")
+    parser.add_argument("--from", "-f", dest="from_date", required=True,
+                        help="Start date for fetching transactions (format: DD.MM.YY)")
+    parser.add_argument("--to", "-t", dest="to_date", required=True,
+                        help="End date for fetching transactions (format: DD.MM.YY)")
     args = parser.parse_args()
 
     main(args.from_date, args.to_date)
