@@ -1,4 +1,5 @@
 from settings import PROCESSED_IDS_FILE
+from settings import logger
 
 
 def read_ids():
@@ -18,7 +19,7 @@ def save_ids(processed_ids):
 def filter_dups(transactions: list[dict[str, any]]) -> list[dict[str, any]]:
     processed_ids = read_ids()
     new_transactions = list(filter(lambda t: t['id'] not in processed_ids, transactions))
-    print(f"...Filter: filtered {len(transactions) - len(new_transactions)} transactions")
+    logger.info(f"...Filter: filtered {len(transactions) - len(new_transactions)} transactions")
 
     processed_ids.update(t['id'] for t in new_transactions)
     save_ids(processed_ids)

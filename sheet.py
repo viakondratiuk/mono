@@ -4,8 +4,9 @@ from zoneinfo import ZoneInfo
 
 from googleapiclient.discovery import build
 
-from settings import get_sheet_credentials
 from settings import SHEETS_ID
+from settings import get_sheet_credentials
+from settings import logger
 
 
 def save(body: dict) -> None:
@@ -19,8 +20,7 @@ def save(body: dict) -> None:
         valueInputOption='USER_ENTERED',
         insertDataOption='INSERT_ROWS',
         body=body).execute()
-
-    print(f"...Sheet: appended {result.get('updates').get('updatedRows')} rows")
+    logger.info(f"...Sheet: appended {result.get('updates').get('updatedRows')} rows")
 
 
 def format(transactions: list[dict[str, any]]) -> dict[str, any]:
@@ -36,7 +36,7 @@ def format(transactions: list[dict[str, any]]) -> dict[str, any]:
             if key == 'time':
                 time_value = transaction.get(key, 0)
                 utc_dt = datetime.fromtimestamp(time_value, tz=timezone.utc)
-                kyiv_dt = utc_dt.astimezone(kyiv_timezone) 
+                kyiv_dt = utc_dt.astimezone(kyiv_timezone)
                 date = kyiv_dt.strftime('%Y-%m-%d')
                 time = kyiv_dt.strftime('%H:%M:%S')
                 row.append(date)
@@ -46,7 +46,7 @@ def format(transactions: list[dict[str, any]]) -> dict[str, any]:
                 row.append(value / 100)
             else:
                 row.append(transaction.get(key, 'N/A'))
-        
+
         values.append(row)
 
     return {'values': values}
