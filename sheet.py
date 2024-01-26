@@ -30,7 +30,7 @@ def format(transactions: list[dict[str, any]]) -> dict[str, any]:
     ]
     kyiv_timezone = ZoneInfo("Europe/Kiev")
     values = []
-    for transaction in transactions:
+    for transaction in transactions[::-1]:
         row = []
         for key in keys_order:
             if key == 'time':
