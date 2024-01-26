@@ -14,9 +14,9 @@ def get_transactions(api_key: str, from_: int, to_: int) -> str:
     return json_
 
 
-def dump(transactions: str) -> None:
-    with open('transactions.json', 'w') as f:
-        json.dump(transactions, f, indent=4)
+def dump(transactions) -> None:
+    with open('transactions.json', 'w', encoding='utf-8') as f:
+        json.dump(transactions, f, indent=4, ensure_ascii=False)
 
 
 def load() -> str:
