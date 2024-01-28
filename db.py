@@ -1,10 +1,11 @@
-from tinydb import TinyDB
 from tinydb import Query
+from tinydb import TinyDB
 
-from settings import logger
 from settings import DB_FILE
+from settings import logger
 
-db = TinyDB(DB_FILE)
+
+db = TinyDB(DB_FILE, sort_keys=True, indent=4, separators=(",", ": "))
 processed_ids_table = db.table("processed_ids")
 last_updated_table = db.table("last_updated")
 
