@@ -399,6 +399,6 @@ FodyWeavers.xsd
 
 keys/*
 transactions.json
-processed_ids.txt
+db.json
 venv/*
 .idea/*

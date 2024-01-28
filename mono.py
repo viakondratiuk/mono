@@ -8,10 +8,12 @@ from settings import logger
 
 
 def get_transactions(api_key: str, from_: int, to_: int) -> list[dict[str, any]]:
-    response = requests.get(MONO_API_URL.format(MONO_ACCOUNT, from_, to_), headers={"X-Token": api_key})
+    url = MONO_API_URL.format(MONO_ACCOUNT, from_, to_)
+    logger.info(f"...Mono: Url {url}")
+    response = requests.get(url, headers={"X-Token": api_key})
     json_ = response.json()
     if "errorDescription" in json_:
-        logger.warning("...Mono: Too many requests, try later")
+        logger.warning(f"...Mono: Error {json_}")
         return []
 
     logger.info(f"...Mono: Extracted {len(json_)} transactions")
