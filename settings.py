@@ -13,6 +13,8 @@ SHEETS_ID = '1L1f-c31oWSG-CTGuSe1XqSAWWHwX6_7XiUTlBoeHh3E'
 
 PROCESSED_IDS_FILE = 'processed_ids.txt'
 
+DATE_FORMAT = '%d.%m.%y'
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
