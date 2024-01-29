@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Optional
 
 import settings
-from db import last_updated
+from db import tinydb
 from mono import mono
 from sheets import sheet
 from utils import date
@@ -19,13 +19,13 @@ def main(from_date: datetime, to_date: datetime, output: Optional[bool]) -> None
     if output:
         mono.dump(all_transactions)
 
-    filtered_transactions = last_updated.filter_dups(all_transactions)
+    filtered_transactions = tinydb.filter_dups(all_transactions)
     body = sheet.format(filtered_transactions)
     sheet.save(body)
 
     if filtered_transactions:
         most_recent_timestamp = max(t["time"] for t in filtered_transactions)
-        last_updated.save_last_updated(most_recent_timestamp)
+        tinydb.save_last_updated(most_recent_timestamp)
 
 
 if __name__ == "__main__":
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         from_date = args.from_date
         to_date = args.to_date if args.to_date else datetime.now()
     else:
-        last_updated = last_updated.get_last_updated()
+        last_updated = tinydb.get_last_updated()
         from_date = datetime.fromtimestamp(last_updated) if last_updated != -1 else datetime.now()
         to_date = datetime.now()
 
