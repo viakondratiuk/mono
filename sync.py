@@ -19,12 +19,12 @@ def main(from_date: datetime, to_date: datetime, output: Optional[bool]) -> None
     if output:
         mono.dump(all_transactions)
 
-    filtered_transactions = tinydb.filter_dups(all_transactions)
-    body = sheet.format(filtered_transactions)
+    new_transactions = tinydb.filter_dups(all_transactions)
+    body = sheet.format(new_transactions)
     sheet.save(body)
 
-    if filtered_transactions:
-        most_recent_timestamp = max(t["time"] for t in filtered_transactions)
+    if new_transactions:
+        most_recent_timestamp = max(t["time"] for t in new_transactions)
         tinydb.save_last_updated(most_recent_timestamp)
 
 
