@@ -2,13 +2,12 @@ import json
 
 import requests
 
-from settings import MONO_ACCOUNT
-from settings import MONO_API_URL
+import settings
 from settings import logger
 
 
 def get_transactions(api_key: str, from_: int, to_: int) -> list[dict[str, any]]:
-    url = MONO_API_URL.format(MONO_ACCOUNT, from_, to_)
+    url = settings.MONO_API_URL.format(settings.MONO_ACCOUNT, from_, to_)
     logger.info(f"...Mono: Url {url}")
     response = requests.get(url, headers={"X-Token": api_key})
     json_ = response.json()
