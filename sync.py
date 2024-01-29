@@ -2,34 +2,31 @@ import argparse
 from datetime import datetime
 from typing import Optional
 
+from db import last_updated
 from mono import mono
-from sheets import sheet
-from utils.date import get_end_of_day
-from utils.date import get_timestamp
-from db.db import filter_dups
-from db.db import get_last_updated
-from db.db import save_last_updated
 from settings import DATE_FORMAT
 from settings import get_mono_key
+from sheets import sheet
+from utils import date
 
 
 def main(from_date: datetime, to_date: datetime, output: Optional[bool]) -> None:
     mono_key = get_mono_key()
 
-    from_timestamp = get_timestamp(from_date)
-    to_timestamp = get_timestamp(to_date, end_of_day=True)
+    from_timestamp = date.to_timestamp(from_date)
+    to_timestamp = date.to_timestamp(to_date, end_of_day=True)
     all_transactions = mono.get_transactions(mono_key, from_timestamp, to_timestamp)
     # all_transactions = mono.load()
     if output:
         mono.dump(all_transactions)
 
-    filtered_transactions = filter_dups(all_transactions)
+    filtered_transactions = last_updated.filter_dups(all_transactions)
     body = sheet.format(filtered_transactions)
     sheet.save(body)
 
     if filtered_transactions:
         most_recent_timestamp = max(t["time"] for t in filtered_transactions)
-        save_last_updated(most_recent_timestamp)
+        last_updated.save_last_updated(most_recent_timestamp)
 
 
 if __name__ == "__main__":
@@ -50,12 +47,12 @@ if __name__ == "__main__":
 
     if args.day:
         from_date = args.day
-        to_date = get_end_of_day(args.day)
+        to_date = date.get_end_of_day(args.day)
     elif args.from_date:
         from_date = args.from_date
         to_date = args.to_date if args.to_date else datetime.now()
     else:
-        last_updated = get_last_updated()
+        last_updated = last_updated.get_last_updated()
         from_date = datetime.fromtimestamp(last_updated) if last_updated != -1 else datetime.now()
         to_date = datetime.now()
 
