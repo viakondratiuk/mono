@@ -21,13 +21,13 @@ def get_transactions(api_key: str, from_: int, to_: int) -> list[dict[str, any]]
 
 
 def dump(transactions) -> None:
-    with open("transactions.json", "w", encoding="utf-8") as f:
+    with open("../transactions.json", "w", encoding="utf-8") as f:
         json.dump(transactions, f, indent=4, ensure_ascii=False)
     logger.info("...Mono: Transactions dumped to file successfully.")
 
 
 def load() -> str:
-    with open("transactions.json", "r") as f:
+    with open("../transactions.json", "r") as f:
         data = json.load(f)
     logger.info("...Mono: Transactions loaded from file successfully.")
     return data
