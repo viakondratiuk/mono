@@ -7,11 +7,10 @@ from settings import logger
 
 
 def get_transactions(from_: int, to_: int) -> list[dict[str, any]]:
-    mono_key = settings.get_mono_key()
     url = settings.MONO_API_URL.format(settings.MONO_ACCOUNT, from_, to_)
     logger.info(f"...Mono: Url {url}")
 
-    response = requests.get(url, headers={"X-Token": mono_key})
+    response = requests.get(url, headers={"X-Token": settings.get_mono_key()})
     json_ = response.json()
     if "errorDescription" in json_:
         logger.warning(f"...Mono: Error {json_}")
