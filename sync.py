@@ -13,8 +13,7 @@ def main(from_date: datetime, to_date: datetime, output: Optional[bool]) -> None
     from_timestamp = date.to_timestamp(from_date)
     to_timestamp = date.to_timestamp(to_date, end_of_day=True)
 
-    mono_key = settings.get_mono_key()
-    all_transactions = mono.get_transactions(mono_key, from_timestamp, to_timestamp)
+    all_transactions = mono.get_transactions(from_timestamp, to_timestamp)
     # all_transactions = mono.load()
     if output:
         mono.dump(all_transactions)
