@@ -4,19 +4,18 @@ from zoneinfo import ZoneInfo
 
 from googleapiclient.discovery import build
 
-from settings import SHEETS_ID
-from settings import get_sheet_credentials
+import settings
 from settings import logger
 
 
 def save(body: dict) -> None:
-    credentials = get_sheet_credentials()
+    credentials = settings.get_sheet_credentials()
     service = build('sheets', 'v4', credentials=credentials)
 
     range_ = 'Sheet1!A3:A'
 
     result = service.spreadsheets().values().append(
-        spreadsheetId=SHEETS_ID, range=range_,
+        spreadsheetId=settings.SHEETS_ID, range=range_,
         valueInputOption='USER_ENTERED',
         insertDataOption='INSERT_ROWS',
         body=body).execute()
