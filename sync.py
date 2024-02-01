@@ -1,4 +1,5 @@
 import argparse
+import os
 from datetime import datetime
 from typing import Optional
 
@@ -37,11 +38,21 @@ if __name__ == "__main__":
                         help="End date for fetching transactions (format: DD.MM.YY)")
     parser.add_argument("--day", "-d", type=lambda d: datetime.strptime(d, settings.DATE_FORMAT),
                         help="Fetch transactions for a day (format: DD.MM.YY)")
+    parser.add_argument("-c", "--clear", action="store_true",
+                        help="Clear the database file")
 
     args = parser.parse_args()
 
     from_date = None
     to_date = None
+
+    if args.clear:
+        if os.path.exists(settings.DB_FILE):
+            os.remove(settings.DB_FILE)
+            print(f"Database file {settings.DB_FILE} deleted.")
+        else:
+            print(f"Database file {settings.DB_FILE} does not exist.")
+        exit()  # Exit the script after deleting the file
 
     if args.day:
         from_date = args.day
