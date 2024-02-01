@@ -9,7 +9,7 @@ MONO_API_URL = "https://api.monobank.ua/personal/statement/{}/{}/{}"
 
 SHEETS_CREDENTIALS = "keys/sheets.json"
 SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-SHEETS_ID = "1L1f-c31oWSG-CTGuSe1XqSAWWHwX6_7XiUTlBoeHh3E"
+SHEETS_ID = "1oCe1veZB8FSpUsYZboErNpJr7T-0rq__WxZ95q0ZawU"
 
 DB_FILE = "/Users/viakondratiuk/Library/Mobile Documents/com~apple~CloudDocs/Projects/MonoSheets/db.json"
 

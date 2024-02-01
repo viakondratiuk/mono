@@ -12,7 +12,7 @@ def save(body: dict) -> None:
     credentials = settings.get_sheet_credentials()
     service = build('sheets', 'v4', credentials=credentials)
 
-    range_ = 'Sheet1!A3:A'
+    range_ = 'Transactions!A3:A'
 
     result = service.spreadsheets().values().append(
         spreadsheetId=settings.SHEETS_ID, range=range_,
@@ -43,7 +43,7 @@ def format(transactions: list[dict[str, any]]) -> dict[str, any]:
                 row.append(time)
             elif key == "amount" or key == "balance":
                 value = transaction.get(key, 0)
-                row.append(value / 100)
+                row.append(-1 * value / 100)
             else:
                 row.append(transaction.get(key, 'N/A'))
 
