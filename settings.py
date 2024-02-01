@@ -11,7 +11,7 @@ SHEETS_CREDENTIALS = "keys/sheets.json"
 SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SHEETS_ID = "1L1f-c31oWSG-CTGuSe1XqSAWWHwX6_7XiUTlBoeHh3E"
 
-DB_FILE = "db.json"
+DB_FILE = "/Users/viakondratiuk/Library/Mobile Documents/com~apple~CloudDocs/Projects/MonoSheets/db.json"
 
 DATE_FORMAT = "%d.%m.%y"
 

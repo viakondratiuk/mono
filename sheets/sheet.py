@@ -24,8 +24,9 @@ def save(body: dict) -> None:
 
 def format(transactions: list[dict[str, any]]) -> dict[str, any]:
     keys_order = [
-        "time", "amount", "mcc", "description",
+        "time", "amount",
         "commissionRate", "balance",
+        "mcc", "description",
     ]
     kyiv_timezone = ZoneInfo("Europe/Kiev")
     values = []
