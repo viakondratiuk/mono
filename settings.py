@@ -3,15 +3,17 @@ import logging
 
 from google.oauth2.service_account import Credentials
 
-MONO_CREDENTIALS = "keys/mono.json"
+PROJECT_PATH = "/Users/viakondratiuk/Library/Mobile Documents/com~apple~CloudDocs/Projects/MonoSheets/"
+
+MONO_CREDENTIALS = PROJECT_PATH + "keys/mono.json"
 MONO_ACCOUNT = "0"
 MONO_API_URL = "https://api.monobank.ua/personal/statement/{}/{}/{}"
 
-SHEETS_CREDENTIALS = "keys/sheets.json"
+SHEETS_CREDENTIALS = PROJECT_PATH + "keys/sheets.json"
 SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SHEETS_ID = "1oCe1veZB8FSpUsYZboErNpJr7T-0rq__WxZ95q0ZawU"
 
-DB_FILE = "/Users/viakondratiuk/Library/Mobile Documents/com~apple~CloudDocs/Projects/MonoSheets/db.json"
+DB_FILE = PROJECT_PATH + "db.json"
 
 DATE_FORMAT = "%d.%m.%y"
 
