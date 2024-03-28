@@ -26,7 +26,7 @@ def get_transactions(from_: int, to_: int) -> list:
 
         logger.info(f"...Mono: Extracted {len(account_transactions)} transactions")
 
-    return sorted(transactions, key=lambda x: x["time"]) 
+    return sorted(transactions, key=lambda x: x["time"], reverse=True) 
 
 
 def dump(transactions) -> None:
