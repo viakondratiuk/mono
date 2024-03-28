@@ -6,7 +6,8 @@ from google.oauth2.service_account import Credentials
 PROJECT_PATH = "/Users/viakondratiuk/Library/Mobile Documents/com~apple~CloudDocs/Projects/MonoSheets/"
 
 MONO_CREDENTIALS = PROJECT_PATH + "keys/mono.json"
-MONO_ACCOUNT = "0"
+MONO_ACCOUNT = ["0", "Zo8gULDo8uViptjkYqEf3Q"]
+# MONO_ACCOUNT = "Zo8gULDo8uViptjkYqEf3Q"
 MONO_API_URL = "https://api.monobank.ua/personal/statement/{}/{}/{}"
 
 SHEETS_CREDENTIALS = PROJECT_PATH + "keys/sheets.json"

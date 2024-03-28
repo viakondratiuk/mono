@@ -26,7 +26,7 @@ def format(transactions: list[dict[str, any]]) -> dict[str, any]:
     keys_order = [
         "time", "amount",
         "commissionRate", "balance",
-        "mcc", "description",
+        "mcc", "description", "account"
     ]
     kyiv_timezone = ZoneInfo("Europe/Kiev")
     values = []
